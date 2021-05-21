@@ -20,6 +20,7 @@ def run_game():
     # 开始游戏主循环
     while True:
         gf.check_events(ship)
+        ship.update()
         gf.update_screen(ai_settings, screen, ship, back_ground_image)
 
 
