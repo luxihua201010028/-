@@ -10,7 +10,7 @@ def check_events(ship):
             # 退出
             sys.exit()
         elif event.type == pygame.KEYDOWN:  # 检测到键盘事件
-            if event.type == pygame.K_RIGHT:  # 检测到是向右的键
+            if event.key == pygame.K_RIGHT:  # 检测到是向右的键
                 ship.rect.centerx += 1
 
 
