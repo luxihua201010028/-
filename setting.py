@@ -15,3 +15,5 @@ class settings:
         self.bullet_width = 3
         self.bullet_height = 15
         self.bullet_color = 60, 60, 60
+        # 将微笑时的子弹限制为10颗
+        self.bullets_allowed = 10
