@@ -1,8 +1,8 @@
-import sys
 import pygame  # 导入整个模块
+
+import game_functions as gf  # 为导入的模块指定别名
 from setting import settings  # 导入某个类
 from ship import Ship  # 导入某个类
-import game_functions as gf  # 为导入的模块指定别名
 
 
 def run_game():
@@ -16,7 +16,7 @@ def run_game():
     # 设置背景图片
     back_ground_image = pygame.image.load(ai_settings.image).convert()
     # 创建一艘飞船
-    ship = Ship(screen)
+    ship = Ship(ai_settings, screen)
     # 开始游戏主循环
     while True:
         gf.check_events(ship)

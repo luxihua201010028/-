@@ -3,9 +3,10 @@ import pygame
 
 class Ship:
 
-    def __init__(self, screen):
+    def __init__(self, ai_settings, screen):
         """初始化飞船，并设置其初始位置"""
         self.screen = screen
+        self.ai_settings = ai_settings
 
         # 加载飞船图像并且获取其外接矩形
         self.image = pygame.image.load('image/ship.bmp')
@@ -15,14 +16,21 @@ class Ship:
         # 将每艘新飞船放在屏幕底部中央
         self.rect.centerx = self.screen_rect.centerx  # 飞船中心的x坐标
         self.rect.bottom = self.screen_rect.bottom  # 飞船下边缘的y坐标
-        self.moving_right=False
-        self.moving_left=False
+        # 在飞船的属性center中添加小数值
+        self.center = float(self.rect.centerx)
+        self.moving_right = False
+        self.moving_left = False
+
     def update(self):
-        '''根据移动标志调整飞船位置'''
+        """根据移动标志调整飞船位置"""
+        # 更新飞船移动的center值，而不是rect
         if self.moving_right:
-            self.rect.centerx+=1
+            self.center += self.ai_settings.ship_speed_factor
         if self.moving_left:
-            self.rect.centerx-=1
+            self.center -= self.ai_settings.ship_speed_factor
+        # 根据self.center更新rect对象
+        self.rect.centerx = self.center
+
     def blitme(self):
         """在指定的位置绘制飞船"""
         self.screen.blit(self.image, self.rect)

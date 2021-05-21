@@ -11,15 +11,14 @@ def check_events(ship):
             sys.exit()
         elif event.type == pygame.KEYDOWN:  # 检测到键盘事件,按下
             if event.key == pygame.K_RIGHT:  # 检测到是向右的键
-                ship.moving_right=True
+                ship.moving_right = True
             if event.key == pygame.K_LEFT:  # 检测到是向左的键
-                ship.moving_left=True
-        elif event.type==pygame.KEYUP:# 检测到键盘事件,松开
-            if event.key==pygame.K_RIGHT:  # 检测到是向右的键
-                ship.moving_right=False
-            if event.key==pygame.K_LEFT:  # 检测到是向左的键
-                ship.moving_left=False
-
+                ship.moving_left = True
+        elif event.type == pygame.KEYUP:  # 检测到键盘事件,松开
+            if event.key == pygame.K_RIGHT:  # 检测到是向右的键
+                ship.moving_right = False
+            if event.key == pygame.K_LEFT:  # 检测到是向左的键
+                ship.moving_left = False
 
 
 def update_screen(ai_settings, screen, ship, back_ground_image):
