@@ -9,7 +9,12 @@ def check_keydown_event(event, ai_setting, screen, ship, bullets):
     if event.key == pygame.K_LEFT:  # 检测到是向左的键
         ship.moving_left = True
     elif event.key == pygame.K_SPACE:
-        # 创建一颗子弹并将其加入到编组bullets
+        fire_bullet(ai_setting, screen, ship, bullets)
+
+
+def fire_bullet(ai_setting, screen, ship, bullets):
+    # 创建一颗子弹并将其加入到编组bullets
+    if len(bullets) < ai_setting.bullets_allowed:
         new_bullet = Bullet(ai_setting, screen, ship)
         bullets.add(new_bullet)
 
@@ -46,3 +51,13 @@ def update_screen(ai_settings, screen, ship, back_ground_image, bullets):
     ship.blitme()
     # 让最近绘制的屏幕可见
     pygame.display.flip()
+
+
+def update_bulltes(bullets):
+    bullets.update()
+    for bullet in bullets.copy():
+        history_len_bullent = len(bullets.copy())
+        if bullet.rect.bottom <= 0:
+            bullets.remove(bullet)
+        # if history_len_bullent!=len(bullets):
+        # print(len(bullets))
