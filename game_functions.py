@@ -4,6 +4,24 @@ from bullet import Bullet
 from alien import Alien
 
 
+def check_fleet_edges(ai_setting, aliens):
+    for alien in aliens.sprites():
+        if alien.check_edges():
+            change_fleet_direction(ai_setting, aliens)
+            break
+
+
+def change_fleet_direction(ai_settings, aliens):
+    for alien in aliens.sprites():
+        alien.rect.y += ai_settings.fleet_drop_speed
+    ai_settings.fleet_direction *= -1
+
+
+def update_aliens(ai_settings, aliens):
+    check_fleet_edges(ai_settings, aliens)
+    aliens.update()
+
+
 def get_number_aliens(ai_settings, alien_width):
     # 计算水平空间=行空间-两个外星人宽度，也就是左右各预留一个外星人宽度
     available_space_x = ai_settings.screen_width - 2 * alien_width
@@ -96,11 +114,11 @@ def update_screen(ai_settings, screen, ship, back_ground_image, aliens, bullets)
     pygame.display.flip()
 
 
-def update_bulltes(bullets):
+def update_bulltes(aliens, bullets):
+    """更新子弹位置，并删除已消失的子弹"""
     bullets.update()
     for bullet in bullets.copy():
-        history_len_bullent = len(bullets.copy())
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
-        # if history_len_bullent!=len(bullets):
-        # print(len(bullets))
+    # 检查是否有子弹击中外星人，如果是这样，删除子弹和外星人
+    collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
